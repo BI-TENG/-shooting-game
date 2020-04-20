@@ -18,7 +18,8 @@
             width: 900px;
             height: 600px;
             background: black;
-            cursor: url(./cursor_white.png) 50 50, auto;
+            /* 滑鼠像素不超過130px */
+            cursor: url(./airplane.png) 50 50, auto;
             overflow: hidden;
             position: relative;
         }
@@ -63,22 +64,20 @@
         let timeleft = 10;
         // 遊戲計時器
         let gametimer = 0;
-        // 殭屍流水號
-        let zbid = 0;
+        // 炸彈流水號
+        let bomb = 0;
 
         const rand = (num) => {
             return Math.round(Math.random() * num)
         }
 
         //炸彈移動的位置
-        const movezb = (zbid) => {
-            $(`#zb${zbid}`).animate({
+        const movebo = (bomb) => {
+            $(`#bo${bomb}`).animate({
                 top: rand(100) + "%",
                 left: rand(100) + "%"
-
-
-            }, 1000, function () {
-                movezb(zbid);
+            }, 2000, function () {
+                movebo(bomb);
             })
         }
 
@@ -93,7 +92,6 @@
             $("#text-time").text(timeleft);
 
             // 遊戲倒數
-            // setInterval => 每隔一段時間執行指定的程式碼
             gametimer = setInterval(() => {
                 // 倒數
                 timeleft--;
@@ -105,8 +103,6 @@
                     clearInterval(gametimer);
                     // 啟用開始按鈕
                     $(this).attr("disabled", false);
-                    // 讓 alert 延遲 100 毫秒才執行
-                    // setTimeout => 延遲幾毫秒，才去執行"一次"指定的程式，執行一次就結束
                     setTimeout(() => {
                         alert("時間到");
                     }, 100);
@@ -114,20 +110,15 @@
                     $("#game img").remove();
                 }
                 else {
-                    // 隨機，每秒出現幾個殭屍
-                    // const num = rand(10);
-                    // 如果抽到數字大於 5 ，生一個殭屍
-                    // if (num > 5) {
-                    $("#game").append(`<img src="./apple.png" id="zb${zbid}">`);
-                    $(`#zb${zbid}`).css({
+                    $("#game").append(`<img src="./apple.png" id="bo${bomb}">`);
+                    $(`#bo${bomb}`).css({
                         // 僵屍的固定位置
-                        top: rand(50) + "%",
-                        left: rand(80) + "%"
+                        top: 50 + "%",
+                        left: 50 + "%"
 
                     })
-                    movezb(zbid);
-                    zbid++;
-                    // }
+                    movebo(bomb);
+                    bomb++;
                 }
             }, 1000)
 
@@ -136,9 +127,12 @@
                 $(this).attr("src", "./爆炸.png");
                 $(this).stop();
                 $(this).css("pointer-events", "none");
-                score++;
-                $("#text-score").text(score);
+                clearInterval(gametimer);
+                $("#game img").remove();
+                timeleft = 0;
+                $("#text-time").text(timeleft);
             })
+            $("#btn-start").attr("disabled", false);
         })
 
     </script>
