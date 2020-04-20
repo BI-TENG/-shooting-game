@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #switcher {
+            position: absolute;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="switcher" style="width:200px;height:200px;border:solid 1px #000;">
+    </div>
+    <script src="jquery-3.5.0.min.js"></script>
+    <script>
+        $(window).keydown(function (event) {
+            switch (event.keyCode) {
+                case 39: $("#switcher").animate({
+                    left: "+=5px"
+                }, 1);
+                    break;
+                case 37: $("#switcher").animate({
+                    left: "-=5px"
+                }, 1);
+                    break;
+                case 40: $("#switcher").animate({
+                    top: "+=5px"
+                }, 1);
+                    break;
+                case 38: $("#switcher").animate({
+                    top: "-=5px"
+                }, 1);
+                    break;
+            }
+        })
+    </script>
+</body>
+
+</html>
