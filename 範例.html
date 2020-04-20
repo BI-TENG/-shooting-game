@@ -41,7 +41,7 @@
         const rand = (num) => {
             return Math.round(Math.random() * num)
         }
-
+        //炸彈移動的位置
         const movezb = (zbid) => {
             $(`#zb${zbid}`).animate({
                 top: rand(70) + "%",
@@ -53,6 +53,7 @@
 
         $("#btn-start").click(function () {
             // 停用開始按鈕
+            // disabled => true => 使按鈕失效
             $(this).attr("disabled", true);
 
             // 重設
@@ -62,6 +63,7 @@
             $("#text-time").text(timeleft);
 
             // 遊戲倒數
+            // setInterval => 每隔一段時間執行指定的程式碼
             gametimer = setInterval(() => {
                 // 倒數
                 timeleft--;
@@ -73,6 +75,8 @@
                     clearInterval(gametimer);
                     // 啟用開始按鈕
                     $(this).attr("disabled", false);
+                    // 讓 alert 延遲 100 毫秒才執行
+                    // setTimeout => 延遲幾毫秒，才去執行"一次"指定的程式，執行一次就結束
                     setTimeout(() => {
                         alert("時間到");
                     }, 100);
@@ -80,12 +84,13 @@
                     $("#game img").remove();
                 }
                 else {
-                    // 隨機
+                    // 隨機，每秒出現幾個殭屍
                     const num = rand(10);
                     // 如果抽到數字大於 5 ，生一個殭屍
                     if (num > 5) {
                         $("#game").append(`<img src="./zombie.gif" id="zb${zbid}">`);
                         $(`#zb${zbid}`).css({
+                            // 僵屍的固定位置
                             top: rand(70) + "%",
                             left: rand(70) + "%"
                         })
@@ -97,6 +102,7 @@
             }, 1000)
         })
 
+        // 取game裡面的元素img，所以要用on
         $("#game").on("click", "img", function () {
             $(this).attr("src", "./blood.png");
             $(this).stop();
