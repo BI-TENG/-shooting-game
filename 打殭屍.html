@@ -23,6 +23,7 @@
             cursor: url(./airplane.png) 50 50, auto;
             overflow: hidden;
             position: relative;
+
         }
 
         #game>img {
@@ -58,7 +59,7 @@
     </div>
     <script src="jquery-3.5.0.min.js"></script>
     <script>
-        let time = "";
+        // let time = "";
         // 剩餘時間
         let timeleft = 0;
         // 遊戲計時器
@@ -87,6 +88,7 @@
 
             timeleft = 0;
             $("#text-time").text(timeleft);
+
             // time = setInterval(function () {
             //     timeleft++
             //     $("#text-time").text(timeleft);
@@ -94,8 +96,8 @@
             // 遊戲計時
             gametimer = setInterval(() => {
                 // 計時
-                // timeleft++;
-                // $("#text-time").text(timeleft);
+                timeleft++;
+                $("#text-time").text(timeleft);
                 // 啟用開始按鈕
                 $(this).attr("disabled", false);
                 // 生出殭屍
@@ -115,10 +117,11 @@
             $(document).ready(function () {
                 $("#game").on("mouseover", "img", function () {
                     // this 指 game 裡其中一個的 img
-                    $(this).attr("src", "./爆炸.png");
-                    $(this).stop();
-                    $(this).css("pointer-events", "none");
+                    // $(this).attr("src", "./爆炸.png");
+                    // $(this).stop();
+                    // $(this).css("pointer-events", "none");
                     $("#game").addClass('animated shake');
+                    // $("#game").css("animation-iteration-count", "infinite")
                     // 讓每次事件發生觸動
                     $("#game").on('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
                         $("#game").removeClass('animated shake');
@@ -130,15 +133,16 @@
                     $("#text-time").text(timeleft);
                     $("#btn-start").attr("disabled", false);
                 })
-                $("#game").on("mouseover", function () {
-                    time = setInterval(function () {
-                        timeleft++
-                        $("#text-time").text(timeleft);
-                    }, 1000)
-                })
-                $("#game").on("mouseout", function () {
-                    clearInterval(time);
-                })
+                // $("#game").on("mouseover", function () {
+                //     time = setInterval(function () {
+                //         timeleft++
+                //         $("#text-time").text(timeleft);
+                //     }, 1000)
+                // })
+                // $("#game").on("mouseout", function () {
+                //     clearInterval(gametimer);
+                //     $("#btn-start").attr("disabled", true)
+                // })
             })
 
         })
