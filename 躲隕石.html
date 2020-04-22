@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+    <title>躲隕石</title>
+    <style>
+        body {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 微軟正黑體;
+        }
+
+        #game {
+            width: 900px;
+            height: 600px;
+            background: black;
+            /* 滑鼠像素不超過130px */
+            cursor: url(./airplane.png) 50 50, auto;
+            overflow: hidden;
+            position: relative;
+        }
+
+        #game>img {
+            position: absolute;
+            height: 50px;
+            animation: a 0.1s ease infinite;
+        }
+
+        @keyframes a {
+            0% {
+                transform: rotate(0de);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        #menu {
+            position: absolute;
+            top: 1%;
+            left: 1%;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="game"></div>
+    <input type="button" value="開始遊戲" id="btn-start">
+    <div id="menu">
+        <p>分數：<span id="text-score">0</span></p>
+        <p>剩餘時間：<span id="text-time">10</span>秒</p>
+    </div>
+    <script src="jquery-3.5.0.min.js"></script>
+    <script>
+        // 分數
+        let score = 0;
+        // 剩餘時間
+        let timeleft = 10;
+        // 遊戲計時器
+        let gametimer = 0;
+        // 炸彈流水號
+        let bomb = 0;
+
+        const rand = (num) => {
+            return Math.round(Math.random() * num)
+        }
+
+        //炸彈移動的位置
+        const movebo = (bomb) => {
+            $(`#bo${bomb}`).animate({
+                top: rand(100) + "%",
+                left: rand(100) + "%"
+            }, 2000, function () {
+                movebo(bomb);
+            })
+        }
+
+        $("#btn-start").click(function () {
+            // 停用開始按鈕
+            $(this).attr("disabled", true)
+
+            // 重設
+            score = 0;
+            $("#text-score").text(score);
+            timeleft = 30;
+            $("#text-time").text(timeleft);
+
+            // 遊戲倒數
+            gametimer = setInterval(() => {
+                // 倒數
+                timeleft--;
+                $("#text-time").text(timeleft);
+
+                // 時間到
+                if (timeleft == 0) {
+                    // 停止計時器
+                    clearInterval(gametimer);
+                    // 啟用開始按鈕
+                    $(this).attr("disabled", false);
+                    setTimeout(() => {
+                        alert("時間到");
+                    }, 100);
+                    // 清場
+                    $("#game img").remove();
+                }
+                else {
+                    $("#game").append(`<img src="./apple.png" id="bo${bomb}">`);
+                    $(`#bo${bomb}`).css({
+                        // 僵屍的固定位置
+                        top: 50 + "%",
+                        left: 50 + "%"
+
+                    })
+                    movebo(bomb);
+                    bomb++;
+                }
+            }, 1000)
+
+            // 取game裡面的元素img，所以要用on
+            // 增加螢幕抖動功能
+            $(document).ready(function () {
+                $("#game").on("mouseover", "img", function () {
+                    // this 指 game 裡其中一個的 img
+                    $(this).attr("src", "./爆炸.png");
+                    // console.log(this)
+                    $(this).stop();
+                    $(this).css("pointer-events", "none");
+                    $("#game").addClass('animated shake');
+
+                    $("#game").on('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
+                        $("#game").removeClass('animated shake');
+                    });
+
+                    $("#game img").remove()
+                    console.log($("#game img"))
+                    clearInterval(gametimer);
+                    timeleft = 0;
+                    $("#text-time").text(timeleft);
+                    $("#btn-start").attr("disabled", false);
+                })
+
+            })
+        })
+
+    </script>
+</body>
+
+</html>
