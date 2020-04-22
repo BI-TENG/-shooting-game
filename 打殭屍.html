@@ -54,10 +54,11 @@
     <div id="game"></div>
     <input type="button" value="開始遊戲" id="btn-start">
     <div id="menu">
-        <p>剩餘時間：<span id="text-time">0</span>秒</p>
+        <p>時間：<span id="text-time">0</span>秒</p>
     </div>
     <script src="jquery-3.5.0.min.js"></script>
     <script>
+        let time = "";
         // 剩餘時間
         let timeleft = 0;
         // 遊戲計時器
@@ -86,12 +87,15 @@
 
             timeleft = 0;
             $("#text-time").text(timeleft);
-
+            // time = setInterval(function () {
+            //     timeleft++
+            //     $("#text-time").text(timeleft);
+            // }, 1000)
             // 遊戲計時
             gametimer = setInterval(() => {
                 // 計時
-                timeleft++;
-                $("#text-time").text(timeleft);
+                // timeleft++;
+                // $("#text-time").text(timeleft);
                 // 啟用開始按鈕
                 $(this).attr("disabled", false);
                 // 生出殭屍
@@ -103,6 +107,7 @@
                 })
                 movebo(bomb);
                 bomb++;
+
             }, 1000)
 
             // 取game裡面的元素img，所以要用on
@@ -111,7 +116,6 @@
                 $("#game").on("mouseover", "img", function () {
                     // this 指 game 裡其中一個的 img
                     $(this).attr("src", "./爆炸.png");
-                    // console.log(this)
                     $(this).stop();
                     $(this).css("pointer-events", "none");
                     $("#game").addClass('animated shake');
@@ -121,11 +125,19 @@
                     });
 
                     $("#game img").remove()
-                    console.log($("#game img"))
                     clearInterval(gametimer);
                     timeleft = 0;
                     $("#text-time").text(timeleft);
                     $("#btn-start").attr("disabled", false);
+                })
+                $("#game").on("mouseover", function () {
+                    time = setInterval(function () {
+                        timeleft++
+                        $("#text-time").text(timeleft);
+                    }, 1000)
+                })
+                $("#game").on("mouseout", function () {
+                    clearInterval(time);
                 })
             })
 
