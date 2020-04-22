@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+    <title>躲隕石</title>
     <style>
         body {
             position: absolute;
@@ -123,16 +124,29 @@
             }, 1000)
 
             // 取game裡面的元素img，所以要用on
-            $("#game").on("mouseover", "img", function () {
-                $(this).attr("src", "./爆炸.png");
-                $(this).stop();
-                $(this).css("pointer-events", "none");
-                clearInterval(gametimer);
-                $("#game img").remove();
-                timeleft = 0;
-                $("#text-time").text(timeleft);
+            // 增加螢幕抖動功能
+            $(document).ready(function () {
+                $("#game").on("mouseover", "img", function () {
+                    // this 指 game 裡其中一個的 img
+                    $(this).attr("src", "./爆炸.png");
+                    // console.log(this)
+                    $(this).stop();
+                    $(this).css("pointer-events", "none");
+                    $("#game").addClass('animated shake');
+
+                    $("#game").on('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
+                        $("#game").removeClass('animated shake');
+                    });
+
+                    $("#game img").remove()
+                    console.log($("#game img"))
+                    clearInterval(gametimer);
+                    timeleft = 0;
+                    $("#text-time").text(timeleft);
+                    $("#btn-start").attr("disabled", false);
+                })
+
             })
-            $("#btn-start").attr("disabled", false);
         })
 
     </script>
