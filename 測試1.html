@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+    <title>Document</title>
+    <style>
+        #target {
+            width: 100px;
+            height: 100px;
+            background-color: aqua;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="target"></div>
+    <button id="button">
+        套用jello特效
+    </button>
+    <script src="jquery-3.5.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#button').click(function () {
+                $('#target').addClass('animated shake');
+                $('#button').attr('disabled', true);
+            });
+
+            $('#target').on('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
+                $('#target').removeClass('animated shake');
+                $('#button').attr('disabled', false);
+            });
+        });
+    </script>
+</body>
+
+</html>
