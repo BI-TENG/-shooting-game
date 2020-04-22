@@ -54,19 +54,17 @@
     <div id="game"></div>
     <input type="button" value="開始遊戲" id="btn-start">
     <div id="menu">
-        <p>分數：<span id="text-score">0</span></p>
-        <p>剩餘時間：<span id="text-time">10</span>秒</p>
+        <p>剩餘時間：<span id="text-time">0</span>秒</p>
     </div>
     <script src="jquery-3.5.0.min.js"></script>
     <script>
-        // 分數
-        let score = 0;
         // 剩餘時間
-        let timeleft = 10;
+        let timeleft = 0;
         // 遊戲計時器
         let gametimer = 0;
         // 炸彈流水號
         let bomb = 0;
+        let inGame = true;
 
         const rand = (num) => {
             return Math.round(Math.random() * num)
@@ -86,41 +84,25 @@
             // 停用開始按鈕
             $(this).attr("disabled", true)
 
-            // 重設
-            score = 0;
-            $("#text-score").text(score);
-            timeleft = 30;
+            timeleft = 0;
             $("#text-time").text(timeleft);
 
-            // 遊戲倒數
+            // 遊戲計時
             gametimer = setInterval(() => {
-                // 倒數
-                timeleft--;
+                // 計時
+                timeleft++;
                 $("#text-time").text(timeleft);
-
-                // 時間到
-                if (timeleft == 0) {
-                    // 停止計時器
-                    clearInterval(gametimer);
-                    // 啟用開始按鈕
-                    $(this).attr("disabled", false);
-                    setTimeout(() => {
-                        alert("時間到");
-                    }, 100);
-                    // 清場
-                    $("#game img").remove();
-                }
-                else {
-                    $("#game").append(`<img src="./apple.png" id="bo${bomb}">`);
-                    $(`#bo${bomb}`).css({
-                        // 僵屍的固定位置
-                        top: 50 + "%",
-                        left: 50 + "%"
-
-                    })
-                    movebo(bomb);
-                    bomb++;
-                }
+                // 啟用開始按鈕
+                $(this).attr("disabled", false);
+                // 生出殭屍
+                $("#game").append(`<img src="./apple.png" id="bo${bomb}">`);
+                $(`#bo${bomb}`).css({
+                    // 僵屍的固定位置
+                    top: 50 + "%",
+                    left: 50 + "%"
+                })
+                movebo(bomb);
+                bomb++;
             }, 1000)
 
             // 取game裡面的元素img，所以要用on
@@ -133,7 +115,7 @@
                     $(this).stop();
                     $(this).css("pointer-events", "none");
                     $("#game").addClass('animated shake');
-
+                    // 讓每次事件發生觸動
                     $("#game").on('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
                         $("#game").removeClass('animated shake');
                     });
@@ -145,8 +127,8 @@
                     $("#text-time").text(timeleft);
                     $("#btn-start").attr("disabled", false);
                 })
-
             })
+
         })
 
     </script>
