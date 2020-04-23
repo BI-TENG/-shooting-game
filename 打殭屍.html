@@ -28,17 +28,21 @@
 
         #game>img {
             position: absolute;
-            height: 50px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
             animation: imgs 0.1s ease infinite;
         }
 
         @keyframes imgs {
             0% {
                 transform: rotate(0de);
+                box-shadow: 0px 0px 10px #FFCF62;
             }
 
             100% {
                 transform: rotate(360deg);
+                box-shadow: 0px 0px 10px #FFC2B1;
             }
         }
 
@@ -47,6 +51,7 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
+
         }
 
         #menu {
@@ -88,75 +93,75 @@
                 movebo(bomb);
             })
         }
-        $(function () {
-            $("#btn-start").click(function () {
 
-                $(this).fadeOut(1000, function () {
+        $("#btn-start").click(function () {
+            // 淡入
+            $(this).fadeOut(1000, function () {
+                // 停用開始按鈕
+                $(this).attr("disabled", true)
+                timeleft = 0;
+                $("#text-time").text(timeleft);
+
+                // time = setInterval(function () {
+                //     timeleft++
+                //     $("#text-time").text(timeleft);
+                // }, 1000)
+                // 遊戲計時
+                gametimer = setInterval(() => {
+                    // 計時
+                    timeleft++;
+                    $("#text-time").text(timeleft);
+                    // 生出炸彈
+                    $("#game").append(`<img src="./隕石.png" id="bo${bomb}" class="bomb">`);
+                    $(`#bo${bomb}`).css({
+                        // 炸彈的固定位置
+                        top: 50 + "%",
+                        left: 50 + "%"
+                    })
+                    movebo(bomb);
+                    bomb++;
+
+                }, 1000)
+            })
 
 
-                    // 停用開始按鈕
-                    $(this).attr("disabled", true)
+
+            // 取game裡面的元素img，所以要用on
+            // 增加螢幕抖動功能
+            $(document).ready(function () {
+                $("#game").on("mouseover", "img", function () {
+                    // this 指 game 裡其中一個的 img
+                    // $(this).attr("src", "./爆炸.png");
+                    // $(this).stop();
+                    // $(this).css("pointer-events", "none");
+                    $("#game").addClass('animated shake');
+                    // $("#game").css("animation-iteration-count", "infinite")
+                    // 讓每次事件發生觸動
+                    $("#game").on('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
+                        $("#game").removeClass('animated shake');
+                    });
+
+                    $("#game img").remove()
+                    clearInterval(gametimer);
                     timeleft = 0;
                     $("#text-time").text(timeleft);
-
-                    // time = setInterval(function () {
-                    //     timeleft++
-                    //     $("#text-time").text(timeleft);
-                    // }, 1000)
-                    // 遊戲計時
-                    gametimer = setInterval(() => {
-                        // 計時
-                        timeleft++;
-                        $("#text-time").text(timeleft);
-                        // 生出殭屍
-                        $("#game").append(`<img src="./apple.png" id="bo${bomb}">`);
-                        $(`#bo${bomb}`).css({
-                            // 僵屍的固定位置
-                            top: 50 + "%",
-                            left: 50 + "%"
-                        })
-                        movebo(bomb);
-                        bomb++;
-
-                    }, 1000)
-                })
-
-
-
-                // 取game裡面的元素img，所以要用on
-                // 增加螢幕抖動功能
-                $(document).ready(function () {
-                    $("#game").on("mouseover", "img", function () {
-                        // this 指 game 裡其中一個的 img
-                        // $(this).attr("src", "./爆炸.png");
-                        // $(this).stop();
-                        // $(this).css("pointer-events", "none");
-                        $("#game").addClass('animated shake');
-                        // $("#game").css("animation-iteration-count", "infinite")
-                        // 讓每次事件發生觸動
-                        $("#game").on('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
-                            $("#game").removeClass('animated shake');
-                        });
-
-                        $("#game img").remove()
-                        clearInterval(gametimer);
-                        timeleft = 0;
-                        $("#text-time").text(timeleft);
+                    // 按鈕淡出
+                    $("#btn-start").fadeIn(1000, function () {
                         $("#btn-start").attr("disabled", false);
                     })
-                    // $("#game").on("mouseover", function () {
-                    //     time = setInterval(function () {
-                    //         timeleft++
-                    //         $("#text-time").text(timeleft);
-                    //     }, 1000)
-                    // })
-                    // $("#game").on("mouseout", function () {
-                    //     clearInterval(gametimer);
-                    //     $("#btn-start").attr("disabled", true)
-                    // })
                 })
-
+                // $("#game").on("mouseover", function () {
+                //     time = setInterval(function () {
+                //         timeleft++
+                //         $("#text-time").text(timeleft);
+                //     }, 1000)
+                // })
+                // $("#game").on("mouseout", function () {
+                //     clearInterval(gametimer);
+                //     $("#btn-start").attr("disabled", true)
+                // })
             })
+
         })
     </script>
 </body>
