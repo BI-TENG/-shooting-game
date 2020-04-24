@@ -20,7 +20,8 @@
         $(window).keydown(function (event) {
             switch (event.keyCode) {
                 case 39: $("#switcher").animate({
-                    left: "+=5px"
+                    left: "+=5px",
+                    top: "-=5px"
                 }, 1);
                     break;
                 case 37: $("#switcher").animate({
