@@ -78,19 +78,28 @@
     body::before {
       content: '';
       position: absolute;
-      top: 10%;
+      top: 20%;
       left: 1%;
       background-image: url(./太空人.png);
       width: 197px;
       height: 226px;
+      animation: photo 1s ease alternate infinite;
+    }
+
+    @keyframes photo {
+      0% {
+        transform: translateY(10px);
+      }
+
+      100% {
+        transform: translateY(-10px);
+      }
     }
   </style>
 </head>
 
 <body>
   <div id="game"></div>
-  <div id="box"></div>
-  <div id="photo"></div>
   <input type="button" value="GAME START" id="btn-start">
   <div id="menu">
     <p>時間：<span id="text-time">0</span>秒</p>
