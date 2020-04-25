@@ -88,7 +88,6 @@
     // 炸彈流水號
     let bomb = 0;
     let bomb2 = 0;
-    let score = 0;
 
     const rand = (num) => {
       return Math.round(Math.random() * num)
@@ -161,8 +160,6 @@
             })
             movebo2(bomb2);
             bomb2++;
-            score++
-            $("#text-score").text(score);
           }
         }, 1000)
       })
