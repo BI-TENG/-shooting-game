@@ -83,7 +83,6 @@
   </div>
   <script src="jquery-3.5.0.min.js"></script>
   <script>
-    // let time = "";
     // 計時時間
     let timeleft = 0;
     // 遊戲計時器
@@ -134,11 +133,6 @@
         $(this).attr("disabled", true)
         timeleft = 0;
         $("#text-time").text(timeleft);
-
-        // time = setInterval(function () {
-        //     timeleft++
-        //     $("#text-time").text(timeleft);
-        // }, 1000)
         // 遊戲計時
         gametimer = setInterval(() => {
           // 計時
@@ -195,16 +189,6 @@
           $(this).attr("disabled", false);
         })
       })
-      // $("#game").on("mouseover", function () {
-      //     time = setInterval(function () {
-      //         timeleft++
-      //         $("#text-time").text(timeleft);
-      //     }, 1000)
-      // })
-      // $("#game").on("mouseout", function () {
-      //     clearInterval(gametimer);
-      //     $("#btn-start").attr("disabled", true)
-      // })
 
     })
   </script>
