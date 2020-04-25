@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
   <title>躲隕石</title>
   <style>
@@ -55,14 +55,9 @@
   } */
 
     #btn-start {
-      font-family: 'Press Start 2P', cursive;
+
       position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: none;
-      /* border: none; */
-      color: white;
+
     }
 
     #menu {
@@ -96,10 +91,7 @@
       return Math.round(Math.random() * num)
     }
 
-    $(document).ready(function () {
-      $("#btn-start").addClass('animated heartBeat');
-      $("#btn-start").css("animation-iteration-count", "infinite")
-    })
+
 
     //炸彈移動的位置
     const movebo = (bomb) => {
