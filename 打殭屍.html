@@ -125,7 +125,7 @@
       $("#btn-start").css("animation-iteration-count", "infinite")
       $("#btn-start").css({
         top: 50 + "%",
-        left: 38 + "%"
+        left: 41 + "%"
       })
     })
 
@@ -139,18 +139,24 @@
       }, "fast", function () {
         movebo(bomb);
         $(this).fadeOut("fast")
+        setTimeout(() => {
+          $(this).remove()
+        }, 1000);
       })
     }
 
-    const movebo2 = (bomb2) => {
-      $(`#bo${bomb2}`).animate({
+    const moveboo = (bomb2) => {
+      $(`#boo${bomb2}`).animate({
         top: rand(90) + "%",
         left: rand(90) + "%",
         width: "200px",
         height: "150px"
       }, 1000, function () {
-        movebo2(bomb2);
+        moveboo(bomb2);
         $(this).fadeOut(1000)
+        setTimeout(() => {
+          $(this).remove()
+        }, 1000);
       })
     }
 
@@ -180,12 +186,12 @@
           }
 
           else {
-            $("#game").append(`<img src="./外星人2.png" id="bo${bomb2}" class="bomb2">`);
-            $(`#bo${bomb2}`).css({
+            $("#game").append(`<img src="./外星人2.png" id="boo${bomb2}" class="bomb2">`);
+            $(`#boo${bomb2}`).css({
               top: 10 + "%",
               left: 10 + "%"
             })
-            movebo2(bomb2);
+            moveboo(bomb2);
             bomb2++;
           }
         }, 1000)
