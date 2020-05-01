@@ -18,7 +18,7 @@
       justify-content: center;
       align-items: center;
       font-family: 微軟正黑體;
-      background-image: url(./星球.jpg);
+      background-image: url(./images/星球.jpg);
       background-size: cover;
       position: relative;
     }
@@ -28,11 +28,11 @@
       height: 600px;
       background: black;
       /* 滑鼠像素不超過130px */
-      cursor: url(./airplane.png) 50 50, auto;
+      cursor: url(./images/airplane.png) 50 50, auto;
       overflow: hidden;
       border-radius: 10px;
       position: relative;
-      background-image: url(./star.gif);
+      background-image: url(./images/star.gif);
       /* box-shadow: 0px 0px 10px white; */
 
     }
@@ -80,7 +80,7 @@
       position: absolute;
       top: 20%;
       left: 1%;
-      background-image: url(./太空人.png);
+      background-image: url(./images/太空人.png);
       width: 197px;
       height: 226px;
       animation: photo 1s ease alternate infinite;
@@ -175,7 +175,7 @@
           // 生出炸彈
           const num = rand(20)
           if (num > 5) {
-            $("#game").append(`<img src="./外星人1.png" id="bo${bomb}" class="bomb">`);
+            $("#game").append(`<img src="./images/外星人1.png" id="bo${bomb}" class="bomb">`);
             $(`#bo${bomb}`).css({
               // 炸彈的固定位置
               top: 50 + "%",
@@ -186,7 +186,7 @@
           }
 
           else {
-            $("#game").append(`<img src="./外星人2.png" id="boo${bomb2}" class="bomb2">`);
+            $("#game").append(`<img src="./images/外星人2.png" id="boo${bomb2}" class="bomb2">`);
             $(`#boo${bomb2}`).css({
               top: 10 + "%",
               left: 10 + "%"
