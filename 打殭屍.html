@@ -114,6 +114,7 @@
     // 炸彈流水號
     let bomb = 0;
     let bomb2 = 0;
+    // let bomb3 = 0;
 
     const rand = (num) => {
       return Math.round(Math.random() * num)
@@ -189,6 +190,14 @@
           })
           moveboo(bomb2);
           bomb2++;
+
+          // $("#game").append(`<img src="./images/外星人3.png" id="booo${bomb3}" class="bomb3">`);
+          // $(`#booo${bomb3}`).css({
+          //   top: 60 + "%",
+          //   left: 10 + "%"
+          // })
+          // movebooo(bomb3);
+          // bomb3++;
         }, 1000)
       })
 
@@ -216,8 +225,6 @@
           $(this).attr("disabled", false);
         })
       })
-
-
     })
   </script>
 </body>
