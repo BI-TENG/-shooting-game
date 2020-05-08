@@ -1,2 +1,2 @@
 網址
- https://BI-TENG.github.io/-shooting-game/打殭屍.html
+https://github.com/BI-TENG/-shooting-game/打殭屍.html
